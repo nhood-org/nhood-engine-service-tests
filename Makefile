@@ -90,7 +90,7 @@ trigger-circle-ci-release:
 	@echo "Triggering application release:"
 	curl -u ${CIRCLE_CI_USER_TOKEN}: \
 		-d build_parameters[CIRCLE_JOB]=release \
-		-d build_parameters[VERSION]=${NEW_VERSION} \
+		-d build_parameters[NEW_VERSION]=${NEW_VERSION} \
 		https://circleci.com/api/v1.1/project/github/nhood-org/${ARTIFACT_NAME}/tree/master
 	@echo "...done"
 
@@ -102,6 +102,6 @@ trigger-circle-ci-docker-release:
 	@echo "Triggering docker release:"
 	curl -u ${CIRCLE_CI_USER_TOKEN}: \
         -d build_parameters[CIRCLE_JOB]=release-docker \
-        -d build_parameters[VERSION]=${NEW_VERSION} \
+        -d build_parameters[NEW_VERSION]=${NEW_VERSION} \
         https://circleci.com/api/v1.1/project/github/nhood-org/${ARTIFACT_NAME}/tree/master
 	@echo "...done"
