@@ -78,8 +78,8 @@ release-docker-ci: build-docker-ci
 	@test $(NEW_VERSION) || ( echo "NEW_VERSION not set" & exit 5 )
 	@echo "Releasing docker image [CI]:"
 	docker login docker.pkg.github.com -u ${GITHUB_USERNAME} -p ${GITHUB_TOKEN} && \
-    docker tag nhood-org/${ARTIFACT_NAME}:${CIRCLE_BRANCH} docker.pkg.github.com/nhood-org/repository/${ARTIFACT_NAME}:${NEW_VERSION} && \
-    docker push docker.pkg.github.com/nhood-org/repository/${ARTIFACT_NAME}:${NEW_VERSION}
+    docker tag nhood-org/${ARTIFACT_NAME}:${CIRCLE_BRANCH} docker.pkg.github.com/nhood-org/repository/${ARTIFACT_NAME}:v${NEW_VERSION} && \
+    docker push docker.pkg.github.com/nhood-org/repository/${ARTIFACT_NAME}:v${NEW_VERSION}
 	@echo "...done"
 
 .PHONY: trigger-circle-ci-release
