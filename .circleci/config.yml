@@ -1,0 +1,48 @@
+version: 2
+
+defaults: &defaults
+  docker:
+  - image: circleci/golang:1.14
+  working_directory: /go/src/github.com/nhood-org/nhood-engine-service-tests
+
+jobs:
+  build:
+    <<: *defaults
+    steps:
+    - checkout
+    - restore_cache:
+        keys:
+        - vendor-cache-v0.1
+    - run: make install-dependencies
+    - run: make install-tools
+    - run: make validate
+    - save_cache:
+        key: vendor-cache-v0.1
+        paths:
+        - "vendor"
+
+  build-docker:
+    machine: true
+    steps:
+      - checkout
+      - run: make build-docker-ci
+
+  release:
+    <<: *defaults
+    steps:
+    - checkout
+    - run: make release-ci
+
+  release-docker:
+    machine: true
+    steps:
+    - checkout
+    - run: make release-docker-ci
+
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+    - build
+    - build-docker
+    
