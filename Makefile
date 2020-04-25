@@ -35,7 +35,6 @@ validate: install-dependencies install-tools
 
 .PHONY: run
 run: install-dependencies install-tools
-	@test $(TEST_TARGET_HOST) || ( echo "TEST_TARGET_HOST not set" & exit 1 )
 	@echo "Running tests:"
 	export TEST_AGAINST_MOCK=off && \
 		./bin/godog features/api.feature

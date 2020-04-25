@@ -4,9 +4,9 @@ Feature: get closest data by ID
   I need to be able to request it by ID
 
   Scenario: should get closes data by ID
-    When I send "GET" request to "/" with ID 1
+    When I send GET request to "/" with ID 1
     Then the response code should be 200
     And the response should match json: 
       """
-      {"id": 1}
+      {"id":1}
       """

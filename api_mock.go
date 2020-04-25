@@ -29,7 +29,7 @@ func runMockAPIServer() {
 			return
 		}
 
-		response := fmt.Sprintf(`{"id": %d}`, id)
+		response := fmt.Sprintf(`{"id":%d}`, id)
 
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte(response))

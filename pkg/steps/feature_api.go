@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	"net/http/httptest"
 	"os"
 
 	"github.com/cucumber/messages-go/v10"
@@ -20,7 +19,7 @@ const (
 type ApiFeature struct {
 	host string
 	port string
-	resp *httptest.ResponseRecorder
+	resp *http.Response
 }
 
 func NewApiFeature() *ApiFeature {
@@ -32,30 +31,29 @@ func NewApiFeature() *ApiFeature {
 
 	return &ApiFeature{
 		host: host,
-		resp: httptest.NewRecorder(),
 	}
 }
 
 func (a *ApiFeature) ResetResponse(*messages.Pickle) {
-	a.resp = httptest.NewRecorder()
+	a.resp = nil
 }
 
-func (a *ApiFeature) SendRequest(method string, endpoint string, id int) error {
+func (a *ApiFeature) SendRequest(endpoint string, id int) error {
 	path := fmt.Sprintf(pathPattern, a.host, endpoint, id)
 
-	req, err := http.NewRequest(method, path, nil)
+	resp, err := http.Get(path)
 	if err != nil {
 		return errors.Wrapf(err, "could not send request to %s", path)
 	}
 
-	http.DefaultServeMux.ServeHTTP(a.resp, req)
+	a.resp = resp
 
 	return nil
 }
 
 func (a *ApiFeature) AssertResponseCode(code int) error {
-	if a.resp.Code != code {
-		m := fmt.Sprintf("actual response code '%d' does not match expected '%d'", a.resp.Code, code)
+	if a.resp.StatusCode != code {
+		m := fmt.Sprintf("actual response code '%d' does not match expected '%d'", a.resp.StatusCode, code)
 		return errors.New(m)
 	}
 

@@ -13,7 +13,7 @@ func FeatureContext(s *godog.Suite) {
 	}
 	s.BeforeScenario(api.ResetResponse)
 
-	s.Step(`^I send "(GET|POST|PUT|DELETE)" request to "([^"]*)" with ID (\d+)$`, api.SendRequest)
+	s.Step(`^I send GET request to "([^"]*)" with ID (\d+)$`, api.SendRequest)
 	s.Step(`^the response code should be (\d+)$`, api.AssertResponseCode)
 	s.Step(`^the response should match json:$`, api.AssertResponseBodyJSON)
 }
