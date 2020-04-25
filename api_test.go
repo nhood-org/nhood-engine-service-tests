@@ -6,8 +6,11 @@ import (
 )
 
 func FeatureContext(s *godog.Suite) {
-	api := &steps.ApiFeature{}
+	api := steps.NewApiFeature()
 
+	if mockEnabled() {
+		go runMockAPIServer()
+	}
 	s.BeforeScenario(api.ResetResponse)
 
 	s.Step(`^I send "(GET|POST|PUT|DELETE)" request to "([^"]*)" with ID (\d+)$`, api.SendRequest)
