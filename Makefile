@@ -13,16 +13,17 @@ clean:
 	go clean ./...
 	@echo "...done"
 
+.PHONY: install-tools
+install-tools:
+	@echo "Installing tools:"
+	export GOBIN=$(GOBIN) && \
+		go get github.com/cucumber/godog/cmd/godog
+	@echo "...done"
+
 .PHONY: install-dependencies
 install-dependencies:
 	@echo "Installing dependencies:"
 	go mod vendor
-	@echo "...done"
-
-.PHONY: install-tools
-install-tools:
-	@echo "Installing tools:"
-	go get github.com/cucumber/godog/cmd/godog
 	@echo "...done"
 
 .PHONY: validate
