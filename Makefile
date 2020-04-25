@@ -61,11 +61,11 @@ release-ci:
 	@test $(GITHUB_USERNAME) || ( echo "GITHUB_USERNAME not set" & exit 1 )
 	@test $(GITHUB_TOKEN) || ( echo "GITHUB_TOKEN not set" & exit 2 )
 	@test $(GITHUB_EMAIL) || ( echo "GITHUB_EMAIL not set" & exit 3 )
-	@test $(VERSION) || ( echo "VERSION not set" & exit 4 )
+	@test $(NEW_VERSION) || ( echo "NEW_VERSION not set" & exit 4 )
 	@echo "Releasing application version [CI]:"
 	git config --global user.email ${GITHUB_EMAIL} && \
 	git config --global user.name ${GITHUB_USERNAME} && \
-	git tag -a v${VERSION} -m "${VERSION}" && \
+	git tag -a v${NEW_VERSION} -m "${NEW_VERSION}" && \
 	git push --tags https://${GITHUB_TOKEN}@github.com/nhood-org/${ARTIFACT_NAME}.git master
 	@echo "...done"
 
@@ -75,11 +75,11 @@ release-docker-ci: build-docker-ci
 	@test $(GITHUB_USERNAME) || ( echo "GITHUB_USERNAME not set" & exit 2 )
 	@test $(GITHUB_TOKEN) || ( echo "GITHUB_TOKEN not set" & exit 3 )
 	@test $(CIRCLE_BRANCH) || ( echo "CIRCLE_BRANCH not set" & exit 4 )
-	@test $(VERSION) || ( echo "VERSION not set" & exit 5 )
+	@test $(NEW_VERSION) || ( echo "NEW_VERSION not set" & exit 5 )
 	@echo "Releasing docker image [CI]:"
 	docker login docker.pkg.github.com -u ${GITHUB_USERNAME} -p ${GITHUB_TOKEN} && \
-    docker tag nhood-org/${ARTIFACT_NAME}:${CIRCLE_BRANCH} docker.pkg.github.com/nhood-org/repository/${ARTIFACT_NAME}:${VERSION} && \
-    docker push docker.pkg.github.com/nhood-org/repository/${ARTIFACT_NAME}:${VERSION}
+    docker tag nhood-org/${ARTIFACT_NAME}:${CIRCLE_BRANCH} docker.pkg.github.com/nhood-org/repository/${ARTIFACT_NAME}:${NEW_VERSION} && \
+    docker push docker.pkg.github.com/nhood-org/repository/${ARTIFACT_NAME}:${NEW_VERSION}
 	@echo "...done"
 
 .PHONY: trigger-circle-ci-release
