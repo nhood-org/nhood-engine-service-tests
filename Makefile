@@ -27,14 +27,14 @@ install-dependencies:
 	@echo "...done"
 
 .PHONY: validate
-validate:
+validate: install-dependencies install-tools
 	@echo "Validating tests:"
 	export TEST_AGAINST_MOCK=on && \
 		./bin/godog features/api.feature
 	@echo "...done"
 
 .PHONY: run
-run:
+run: install-dependencies install-tools
 	@test $(TEST_TARGET_HOST) || ( echo "TEST_TARGET_HOST not set" & exit 1 )
 	@echo "Running tests:"
 	export TEST_AGAINST_MOCK=off && \

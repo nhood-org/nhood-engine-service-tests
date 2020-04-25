@@ -13,8 +13,6 @@ jobs:
     - restore_cache:
         keys:
         - vendor-cache-v0.1
-    - run: make install-dependencies
-    - run: make install-tools
     - run: make validate
     - save_cache:
         key: vendor-cache-v0.1
