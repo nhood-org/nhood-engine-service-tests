@@ -24,7 +24,7 @@ make validate
 
 ## Usage
 
-In order to run test against a test server, specify TEST_TARGET_HOST and use the following make command:
+In order to run test against a target server, specify TEST_TARGET_HOST and use the following make command:
 
 ```bash
 export TEST_TARGET_HOST=localhost:8080
