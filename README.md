@@ -33,11 +33,12 @@ make run
 
 ## CI/CD
 
-Project is continuously integrated with `circleCi` pipeline that link to which may be found [here](https://circleci.com/gh/nhood-org/workflows/nhood-engine-service-tests)
+Project is continuously integrated within a `circleCi` pipeline that link to which may be found [here](https://circleci.com/gh/nhood-org/workflows/nhood-engine-service-tests)
 
 Pipeline is fairly simple:
 
 1. Validate tests
+1. Build docker image with test application
 
 Configuration of CI is implemented in `.circleci/config.yml`.
 
