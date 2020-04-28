@@ -50,9 +50,9 @@ build-docker:
 .PHONY: build-docker-ci
 build-docker-ci:
 	@test $(ARTIFACT_NAME) || ( echo "ARTIFACT_NAME not set" & exit 1 )
-	@test $(CIRCLE_BRANCH) || ( echo "CIRCLE_BRANCH not set" & exit 2 )
+	@test $(CIRCLE_BUILD_NUM) || ( echo "CIRCLE_BUILD_NUM not set" & exit 2 )
 	@echo "Building docker image [CI]:"
-	docker build -t nhood-org/${ARTIFACT_NAME}:${CIRCLE_BRANCH} .
+	docker build -t nhood-org/${ARTIFACT_NAME}:${CIRCLE_BUILD_NUM} .
 	@echo "...done"
 
 .PHONY: release-ci
@@ -73,11 +73,11 @@ release-docker-ci: build-docker-ci
 	@test $(ARTIFACT_NAME) || ( echo "ARTIFACT_NAME not set" & exit 1 )
 	@test $(GITHUB_USERNAME) || ( echo "GITHUB_USERNAME not set" & exit 2 )
 	@test $(GITHUB_TOKEN) || ( echo "GITHUB_TOKEN not set" & exit 3 )
-	@test $(CIRCLE_BRANCH) || ( echo "CIRCLE_BRANCH not set" & exit 4 )
+	@test $(CIRCLE_BUILD_NUM) || ( echo "CIRCLE_BUILD_NUM not set" & exit 4 )
 	@test $(NEW_VERSION) || ( echo "NEW_VERSION not set" & exit 5 )
 	@echo "Releasing docker image [CI]:"
 	docker login docker.pkg.github.com -u ${GITHUB_USERNAME} -p ${GITHUB_TOKEN} && \
-    docker tag nhood-org/${ARTIFACT_NAME}:${CIRCLE_BRANCH} docker.pkg.github.com/nhood-org/repository/${ARTIFACT_NAME}:v${NEW_VERSION} && \
+    docker tag nhood-org/${ARTIFACT_NAME}:${CIRCLE_BUILD_NUM} docker.pkg.github.com/nhood-org/repository/${ARTIFACT_NAME}:v${NEW_VERSION} && \
     docker push docker.pkg.github.com/nhood-org/repository/${ARTIFACT_NAME}:v${NEW_VERSION}
 	@echo "...done"
 
