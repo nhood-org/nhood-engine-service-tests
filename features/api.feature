@@ -3,7 +3,7 @@ Feature: get closest data by ID
   As an API user
   I need to be able to request it by ID
 
-  Scenario: should get closes data by ID
+  Scenario: should get closest data by ID
     When I send GET request to "/" with ID 1
     Then the response code should be 200
     And the response should match json: 

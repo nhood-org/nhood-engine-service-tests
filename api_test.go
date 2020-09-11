@@ -5,7 +5,7 @@ import (
 	"github.com/nhood-org/nhood-engine-service-tests/pkg/steps"
 )
 
-func FeatureContext(s *godog.Suite) {
+func FeatureContext(s *godog.ScenarioContext) {
 	api := steps.NewApiFeature()
 
 	if mockEnabled() {
