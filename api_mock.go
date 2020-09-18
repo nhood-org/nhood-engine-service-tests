@@ -1,12 +1,9 @@
 package tests
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"os"
-	"strconv"
-	"strings"
 )
 
 const (
@@ -20,19 +17,33 @@ func mockEnabled() bool {
 }
 
 func runMockAPIServer() {
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		idString := strings.TrimPrefix(r.URL.Path, "/")
-		id, err := strconv.Atoi(idString)
-		if err != nil {
-			w.WriteHeader(http.StatusBadRequest)
-			w.Write([]byte("400 - Invalid ID" + idString))
-			return
+	http.HandleFunc("/data", func(w http.ResponseWriter, r *http.Request) {
+		response := ""
+		w.WriteHeader(http.StatusOK)
+		_, _ = w.Write([]byte(response))
+	})
+
+	http.HandleFunc("/find", func(w http.ResponseWriter, r *http.Request) {
+		size := r.URL.Query().Get("size")
+
+		var status int
+		body := ""
+
+		switch size {
+		default:
+			status = http.StatusInternalServerError
+		case "0":
+			status = http.StatusBadRequest
+		case "1":
+			status = http.StatusOK
+			body = `[{"id":"ID_0","key":["0","0","0"]}]`
+		case "3":
+			status = http.StatusOK
+			body = `[{"id":"ID_0","key":["0","0","0"]},{"id":"ID_5","key":["1","0","0"]},{"id":"ID_1","key":["0","0","1"]}]`
 		}
 
-		response := fmt.Sprintf(`{"id":%d}`, id)
-
-		w.WriteHeader(http.StatusOK)
-		w.Write([]byte(response))
+		w.WriteHeader(status)
+		_, _ = w.Write([]byte(body))
 	})
 
 	log.Fatal(http.ListenAndServe(defaultPort, nil))
