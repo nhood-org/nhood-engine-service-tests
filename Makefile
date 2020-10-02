@@ -102,5 +102,5 @@ trigger-circle-ci-docker-release:
 	curl -u ${CIRCLE_CI_USER_TOKEN}: \
         -d build_parameters[CIRCLE_JOB]=release-docker \
         -d build_parameters[NEW_VERSION]=${NEW_VERSION} \
-        https://circleci.com/api/v1.1/project/github/nhood-org/${ARTIFACT_NAME}/tree/master
+        https://circleci.com/api/v1.1/project/github/nhood-org/${ARTIFACT_NAME}/tree/v$(NEW_VERSION)
 	@echo "...done"
