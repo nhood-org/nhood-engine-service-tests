@@ -1,6 +1,6 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Version](https://img.shields.io/badge/package-v0.1.1-blue.svg?maxAge=2592000)](https://github.com/nhood-org/nhood-engine-service-tests/releases/tag/v0.1.1)
-[![Version](https://img.shields.io/badge/docker-v0.1.1-blue.svg?maxAge=2592000)](https://github.com/nhood-org/repository/packages/199509)
+[![Version](https://img.shields.io/badge/package-v0.1.2-blue.svg?maxAge=2592000)](https://github.com/nhood-org/nhood-engine-service-tests/releases/tag/v0.1.2)
+[![Version](https://img.shields.io/badge/docker-v0.1.2-blue.svg?maxAge=2592000)](https://github.com/nhood-org/repository/packages/199509)
 [![CircleCI](https://circleci.com/gh/nhood-org/nhood-engine-service-tests.svg?style=shield)](https://circleci.com/gh/nhood-org/nhood-engine-service-tests)
 [![Go Report Card](https://goreportcard.com/badge/github.com/nhood-org/nhood-engine-service-tests)](https://goreportcard.com/report/github.com/nhood-org/nhood-engine-service-tests)
 
