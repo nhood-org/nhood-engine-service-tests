@@ -6,8 +6,9 @@ import (
 )
 
 type Data struct {
-	ID  string   `json:"id"`
-	Key []string `json:"key"`
+	UUID      string   `json:"uuid"`
+	Key       []string `json:"key"`
+	Reference string   `json:"reference"`
 }
 
 func NewDataFrom(row *messages.PickleStepArgument_PickleTable_PickleTableRow) Data {
@@ -16,12 +17,12 @@ func NewDataFrom(row *messages.PickleStepArgument_PickleTable_PickleTableRow) Da
 	}
 
 	cells := row.GetCells()
-	id := cells[0].Value
-	key := strings.Split(cells[1].Value, ",")
+	key := strings.Split(cells[0].Value, ",")
+	reference := cells[1].Value
 
 	return Data{
-		ID:  id,
-		Key: key,
+		Key:       key,
+		Reference: reference,
 	}
 }
 
